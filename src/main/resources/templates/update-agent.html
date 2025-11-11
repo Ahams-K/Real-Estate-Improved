@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Agent</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script th:src="@{/js/bundle-UpdateAgent.js}" defer></script>
+    <link th:href="@{/css/bundle-main.css}" rel="stylesheet">
+</head>
+<body>
+<header th:insert="~{fragments/header::header}"></header>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Edit Agent</h1>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h3 class="card-title" th:text="${agent.agentName}" style="font-size: 1.5rem; font-weight: bold;"></h3>
+            <form id="update-agent-form" th:attr="data-agent-id=${agent.agentId}">
+                <div class="mb-3">
+                    <label for="contact-info" class="form-label"><strong>Contact Info</strong></label>
+                    <input type="text" class="form-control" id="contact-info" th:value="${agent.contactInfo}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="licence-number" class="form-label"><strong>License Number</strong></label>
+                    <input type="text" class="form-control" id="licence-number" th:value="${agent.licenceNumber}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label"><strong>Email</strong></label>
+                    <input type="email" class="form-control" id="email" th:value="${agent.email}">
+                </div>
+
+                <button type="submit" id="update-agent-button" class="btn btn-primary">Update Agent</button>
+                <a th:href="@{/agents/{id}(id=${agent.agentId})}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+    <br>
+</div>
+<footer th:insert="~{fragments/footer::footer}"></footer>
+</body>
+</html>

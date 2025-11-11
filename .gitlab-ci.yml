@@ -1,0 +1,49 @@
+image: timbru31/java-node:21-alpine-jdk-22
+
+stages:
+  - build
+  - test
+
+variables:
+  POSTGRES_DB: 'realestate-test'
+  POSTGRES_USER: 'spring'
+  POSTGRES_PASSWORD: 'spring'
+  SPRING_DATASOURCE_URL: 'jdbc:postgresql://postgres:5432/${POSTGRES_DB}'
+  SPRING_DATASOURCE_USERNAME: '${POSTGRES_USER}'
+  SPRING_DATASOURCE_PASSWORD: '${POSTGRES_PASSWORD}'
+  SPRING_SQL_INIT_MODE: 'never'
+
+before_script:
+  - chmod +x ./gradlew
+
+build:
+  stage: build
+  script:
+    - ./gradlew --build-cache assemble
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: push
+    paths:
+      - build
+      - .gradle
+
+test:
+  stage: test
+  services:
+    - name: postgres:17.2-alpine
+      alias: postgres
+  script:
+    - ./gradlew check
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - build/test-results/test/**/TEST-*.xml
+    paths:
+      - build/reports/tests
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle

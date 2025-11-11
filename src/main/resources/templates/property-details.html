@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Property Details</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script th:src="@{/js/bundle-Properties.js}" defer></script>
+    <link th:href="@{/css/bundle-main.css}" rel="stylesheet">
+</head>
+<body>
+<header th:insert="~{fragments/header::header}"></header>
+<div class="container my-5">
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-md-4 d-flex align-items-stretch">
+                <img th:src="${property.image}" class="img-fluid rounded-start w-100 h-100" alt="Property Image" style="object-fit: cover;">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h3 class="card-title" th:text="${property.propertyName}"></h3>
+                    <p class="card-text">
+                        <strong >ID:</strong> <span th:text="${property.propertyId}"></span>
+                    </p>
+                    <p class="card-text">
+                        <strong >Address:</strong> <span th:text="${property.address}"></span>
+                    </p>
+                    <p class="card-text d-flex align-items-center gap-2">
+                        <label for="property-price" class="fw-bold">Price:</label>
+                        <span th:if="${!property.isModificationAllowed}" th:text="${property.price}"></span>
+                        <input th:if="${property.isModificationAllowed}" th:value="${property.price}" id="property-price" type="number"
+                               class="form-control w-auto" style="max-width: 200px;">
+                    </p>
+                    <p class="card-text">
+                        <strong >Type:</strong> <span th:text="${property.type}"></span>
+                    </p>
+                    <p class="card-text">
+                        <strong >Size:</strong> <span th:text="${property.size}"></span>
+                    </p>
+                    <p class="card-text">
+                        <strong >Status:</strong> <span th:text="${property.status}"></span>
+                    </p>
+                    <p class="card-text">
+                        <strong >Rooms:</strong> <span th:text="${property.numberOfRooms}"></span>
+                    </p>
+                    <p class="card-text">
+                        <strong>Date Listed:</strong> <span th:text="${property.dateListed}"></span>
+                    </p>
+                    <button class="btn btn-primary"
+                    id="load-agents"
+                    th:attr="data-property-id=${property.propertyId}">Agents</button>
+                   <div id="assigned-agents"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div th:if="${property.isModificationAllowed}" class="justify-content-end d-flex">
+        <button class="btn btn-sm btn-primary" type="button" id="edit-property" th:attr="data-property-id=${property.propertyId}" disabled>Save</button>
+    </div>
+
+    <br>
+    <a th:href="@{/properties}" class="btn btn-primary" >Back to Properties</a>
+</div>
+<footer th:insert="~{fragments/footer::footer}"></footer>
+</body>
+</html>

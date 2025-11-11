@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/bundle-main.css}" rel="stylesheet">
+</head>
+<body>
+<header th:insert="~{fragments/header::header}"></header>
+<div class="container my-5">
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-md-4 d-flex align-items-stretch">
+                <img th:src="${agency.image}" class="img-fluid rounded-start w-100 h-100" alt="Property Image" style="object-fit: cover;">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h3 class="card-title" th:text="${agency.agencyName}"></h3>
+                    <p class="card-text">
+                        <strong >ID:</strong> <span th:text="${agency.agencyId}"></span>
+                    </p>
+                    <p class="card-text">
+                        <strong >Address:</strong> <span th:text="${agency.address}"></span>
+                    </p>
+                    <p class="card-text">
+                        <strong >City:</strong> <span th:text="${agency.city}"></span>
+                    </p>
+                    <p class="card-text">
+                        <strong >Contact Info:</strong> <span th:text="${agency.contactInfo}"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <a th:href="@{/agencies}" class="btn btn-primary" >Back to Agencies</a>
+</div>
+<footer th:insert="~{fragments/footer::footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,92 @@
+### #@no-redirect
+POST http://localhost:8080/login
+Content-Type: application/x-www-form-urlencoded
+Cookie: JSESSIONID=8847215BA4F05001BF2C4ED35AD841AD
+
+username=Aisosa&password=aisosa&_csrf=V0laXIJQrosQt6pYk7slwNKXsI0LNAZLSf9xTsnaOWoNllKAb3hrbOFjyL09gZhtpZYRoeX1new_AjBme8gQKq2_WAxv8mLl
+
+
+### Get CSRF token and session
+GET http://localhost:8080/login
+
+
+### GET request to example server
+GET http://localhost:8080/api/agents/123e4567-e89b-12d3-a456-426614174000/properties
+Accept: application/json
+
+###
+
+
+DELETE http://localhost:8080/api/agents/483febe6-b432-487d-8de6-1c20d69371a1
+
+###
+
+DELETE http://localhost:8080/api/properties/07026815-3805-4ce4-bb8d-dbbc19d41a13
+
+
+<> 2025-02-26T182236.201.json
+
+###
+GET http://localhost:8080/api/agents/d6bb59b9-c082-4282-8cda-2be47ebd17d4/properties
+Accept: application/json
+
+###
+POST http://localhost:8080/api/properties
+
+
+
+###
+POST http://localhost:8080/api/agents
+content-type: application/json
+Accept: application/json
+
+{
+  "agentName" : "Kings",
+  "contactInfo" : "+3452662821",
+  "licenceNumber" : "NAS-564",
+  "email" : "king@example.com"
+}
+
+
+###
+POST http://localhost:8080/api/properties
+content-type: application/json
+Accept: application/json
+
+{
+  "propertyName" : "Example Property",
+  "address" : "No 84 mystreet",
+  "price": 120000000.0,
+  "type": "AGRICULTURAL",
+  "size" : 65000.0,
+  "status": "AVAILABLE",
+  "numberOfRooms": 8,
+  "dateListed": "2025-02-25"
+}
+
+###
+POST http://localhost:8080/api/properties
+content-type: application/json
+Accept: application/json
+
+{
+  "propertyName" : "Example Property",
+  "address" : "No 84 mystreet",
+  "price": 120000000.0,
+  "type": "HOME",
+  "size" : 65000.0,
+  "status": "AVAILABLE",
+  "numberOfRooms": 8,
+  "dateListed": "2025-02-25"
+}
+
+
+###
+PATCH http://localhost:8080/api/properties/1dccab14-907f-47c3-9eac-7995619c9858
+Content-Type: application/json
+X-CSRF-TOKEN: iIZ5SI4nJvh3iTsIQzCnxUcy2Q58g6abDb3WgVjlA8feEk7euLNMfOwfE8pavAI_Jx2TpyRT9Gwf4Ze2O4WysjqAMvToJn6_
+Cookie: JSESSIONID=022690404D5FE91E2510118D18CA3841
+
+{
+  "price": 350000.0
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Property</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script th:src="@{/js/bundle-AddProperty.js}" defer></script>
+    <link th:href="@{/css/bundle-main.css}" rel="stylesheet">
+</head>
+<body>
+<header th:insert="~{fragments/header::header}"></header>
+
+<div class="container mt-4">
+    <form id="add-property-propertyForm">
+        <fieldset>
+            <legend>
+                <h2>Add A New Property</h2>
+            </legend>
+            <div class="row mb-3">
+                <label for="propertyName" class="col-sm-3 col-form-label">Name:</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="propertyName" name="propertyName">
+                    <div class="invalid-feedback" id="propertyName-error"></div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="address" class="col-sm-3 col-form-label">Address:</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="address" name="address">
+                    <div class="invalid-feedback" id="address-error"></div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="price" class="col-sm-3 col-form-label">Price:</label>
+                <div class="col-sm-5">
+                    <input type="number" step="any" class="form-control" id="price" name="price">
+                    <div class="invalid-feedback" id="price-error"></div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="type" class="col-sm-3 col-form-label">Type:</label>
+                <div class="col-sm-5">
+                    <select class="form-select" id="type" name="type">
+                        <option value="" disabled selected>Choose Type</option>
+                        <option th:each="type: ${T(be.kdg.prog5.RealEstateSystem.domain.PropertyType).values()}" th:value="${type}" th:text="${type}"></option>
+                    </select>
+                    <div class="invalid-feedback" id="type-error"></div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="size" class="col-sm-3 col-form-label">Size:</label>
+                <div class="col-sm-5">
+                    <input type="number" class="form-control" id="size" name="size">
+                    <div class="invalid-feedback" id="size-error"></div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="status" class="col-sm-3 col-form-label">Status:</label>
+                <div class="col-sm-5">
+                    <select class="form-select" id="status" name="status">
+                        <option value="" disabled selected>Choose Status</option>
+                        <option th:each="status: ${T(be.kdg.prog5.RealEstateSystem.domain.PropertyStatus).values()}" th:value="${status}" th:text="${status}"></option>
+                    </select>
+                    <div class="invalid-feedback" id="status-error"></div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="numberOfRooms" class="col-sm-3 col-form-label">Number Of Rooms:</label>
+                <div class="col-sm-5">
+                    <input type="number" class="form-control" id="numberOfRooms" name="numberOfRooms">
+                    <div class="invalid-feedback" id="numberOfRooms-error"></div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="dateListed" class="col-sm-3 col-form-label">Date Listed:</label>
+                <div class="col-sm-5">
+                    <input type="date" class="form-control" id="dateListed" name="dateListed">
+                    <div class="invalid-feedback" id="dateListed-error"></div>
+                </div>
+            </div>
+        </fieldset>
+        <button type="submit" class="btn btn-primary mt-3" style="margin-bottom: 20px;" value="Submit">Submit</button>
+    </form>
+</div>
+<footer th:insert="~{fragments/footer::footer}"></footer>
+</body>
+</html>

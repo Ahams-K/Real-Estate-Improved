@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Agent</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link th:href="@{/css/bundle-main.css}" rel="stylesheet">
+</head>
+<body>
+<header th:insert="~{fragments/header::header}"></header>
+
+
+<form method="post" th:action="@{/agents/add}" th:object="${form}">
+    <fieldset>
+        <legend>
+            <h2 th:text="#{agent.addagent}">Add An Agent If You Like</h2>
+        </legend>
+        <div class="row mb-3">
+            <label for="agentName" class="col-sm-3 col-form-label" th:text="#{name}">Name:</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="agentName" th:field="*{agentName}" required>
+                <div class="form-text" th:if="${#fields.hasErrors('agentName')}" th:errors="*{agentName}" style="color: red;"></div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="password" class="col-sm-3 col-form-label" >Password:</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="password" th:field="*{password}" required>
+                <div class="form-text" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red;"></div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="contactInfo" class="col-sm-3 col-form-label" th:text="#{contactInfo}">Contact Info:</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="contactInfo" th:field="*{contactInfo}" required>
+                <div class="form-text" th:if="${#fields.hasErrors('contactInfo')}" th:errors="*{contactInfo}" style="color: red;"></div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="licenceNumber" class="col-sm-3 col-form-label" th:text="#{agent.licenceNumber}">Licence Number:</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="licenceNumber" th:field="*{licenceNumber}" required>
+                <div class="form-text" th:if="${#fields.hasErrors('licenceNumber')}" th:errors="*{licenceNumber}" style="color: red;"></div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="email" class="col-sm-3 col-form-label" th:text="#{agent.email}">Email:</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="email" th:field="*{email}" required>
+                <div class="form-text" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red;"></div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="agentProperties" class="col-sm-3 col-form-label">Properties:</label>
+            <div class="col-sm-5">
+                <select class="form-select" id="agentProperties" th:field="*{agentProperties}">
+                    <option value=""></option>
+                    <option
+                            th:each="property : ${properties}"
+                            th:value="${property.propertyId}"
+                            th:text="${property.propertyName}"
+                    ></option>
+                </select>
+                <div class="form-text" th:if="${#fields.hasErrors('agentProperties')}" th:errors="*{agentProperties}" style="color: red;"></div>
+            </div>
+        </div>
+    </fieldset>
+    <button type="submit" class="btn btn-primary mt-3" style="margin-bottom: 20px;" value="Submit" th:text="#{submit}">Submit</button> <!-- Added margin-bottom -->
+</form>
+<footer th:insert="~{fragments/footer::footer}"></footer>
+</body>
+</html>

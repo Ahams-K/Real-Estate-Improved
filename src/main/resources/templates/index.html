@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Real Estate Service</title>
+    <link th:href="@{/css/bundle-main.css}" rel="stylesheet">
+</head>
+<body>
+
+<header class="text-center my-4">
+    <h1>ようこそ、どのようにお手伝いできますか？</h1>
+</header>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <!-- First row with three cards -->
+        <div class="col-md-3 mb-3">
+            <a th:href="@{/properties}" class="text-decoration-none">
+                <div class="card hover-card">
+                    <img th:src="@{/images/Properties.jpg}" alt="Properties" class="card-img-top">
+                    <div class="overlay" >Properties</div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 mb-3">
+            <a th:href="@{/agents}" class="text-decoration-none">
+                <div class="card hover-card">
+                    <img th:src="@{/images/Agents.jpg}" alt="Agents" class="card-img-top">
+                    <div class="overlay" >Agents</div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 mb-3">
+            <a th:href="@{/properties/add}" class="text-decoration-none">
+                <div class="card hover-card">
+                    <img th:src="@{/images/AddProperty.jpg}" alt="Add Property" class="card-img-top">
+                    <div class="overlay" >Add A New Property</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <!-- Second row with two cards -->
+        <div class="col-md-3 mb-3">
+            <a th:href="@{/agents/add}" class="text-decoration-none">
+                <div class="card hover-card">
+                    <img th:src="@{/images/AddAgent.jpg}" alt="Add Agent" class="card-img-top">
+                    <div class="overlay" >Add New Agent</div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 mb-3">
+            <a th:href="@{/agencies}" class="text-decoration-none">
+                <div class="card hover-card">
+                    <img th:src="@{/images/Agencies.jpg}" alt="Agencies" class="card-img-top">
+                    <div class="overlay" >Agencies</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+<!--    <div class="row justify-content-center mb-5">-->
+<!--        &lt;!&ndash; Buttons aligned horizontally &ndash;&gt;-->
+<!--        <div class="col-auto">-->
+<!--            <form th:action="@{/export/properties.json}" method="get">-->
+<!--                <button class="btn btn-primary mx-2" type="submit" >Export Properties</button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--        <div class="col-auto">-->
+<!--            <form th:action="@{/export/agents.json}" method="get">-->
+<!--                <button class="btn btn-primary mx-2" type="submit" >Export Agents</button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>
+<footer th:insert="~{fragments/footer::footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agents</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script th:src="@{/js/bundle-DeleteAgent.js}" defer></script>
+    <link th:href="@{/css/bundle-main.css}" rel="stylesheet">
+</head>
+<body>
+<header th:insert="~{fragments/header::header}"></header>
+
+<div class="container mt-5">
+    <h1 class="mb-4" th:text="#{text}">Agents</h1>
+    <div class="row">
+        <div class="col-md-4 mb-3" th:each="agent : ${Agents}" th:id="'agent-' + ${agent.agentId}">
+            <div class="card shadow-sm text-center">
+                <div class="card-body">
+                    <h3 class="card-title" th:text="${agent.agentName}" style="font-size: 1.75rem; font-weight: bold;"></h3>
+                    <div class="d-flex justify-content-center mt-3">
+                        <form th:action="@{/agents/{id}(id=${agent.agentId})}" method="get" class="me-2">
+                            <button class="btn btn-primary btn-sm">Agent Details</button>
+                        </form>
+
+                        <!-- Update button - visible to admin or the agent themselves -->
+                        <form th:action="@{/agents/update/{id}(id=${agent.agentId})}" method="get" class="me-2"
+                              sec:authorize="isAuthenticated()">
+                            <button class="btn btn-warning btn-sm"
+                                    th:if="${#authorization.expression('hasRole(''ADMIN'')') or agent.agentId.toString() == #authentication.principal.agentId.toString()}">
+                                Update Agent
+                            </button>
+                        </form>
+
+                        <!-- Delete button - visible to admin or the agent themselves -->
+                        <button class="btn btn-danger btn-sm remove-agent-button"
+                                th:attr="data-agent-id=${agent.agentId}"
+                                sec:authorize="isAuthenticated()"
+                                th:if="${#authorization.expression('hasRole(''ADMIN'')') or agent.agentId.toString() == #authentication.principal.agentId.toString()}">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="~{fragments/footer::footer}"></footer>
+</body>
+</html>

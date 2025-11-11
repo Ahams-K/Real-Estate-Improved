@@ -1,0 +1,49 @@
+// SCSS Variables for hover-card styles
+$overlay-bg-color: rgba(0, 0, 0, 0.7);
+$transition-duration: 0.3s;
+$overlay-font-size: 1.25rem;
+
+// Bootstrap and Bootswatch imports
+@import "../../../node_modules/bootswatch/dist/cyborg/variables";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+@import "../../../node_modules/bootswatch/dist/cyborg/bootswatch";
+@import "../../../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+
+// Hover card styles (migrated from stylesheet.css)
+.hover-card {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  cursor: pointer;
+  transition: transform $transition-duration;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $overlay-bg-color;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $overlay-font-size;
+    opacity: 0;
+    transition: opacity $transition-duration;
+
+    // Nested hover state for overlay
+    .hover-card:hover & {
+      opacity: 1;
+    }
+  }
+}

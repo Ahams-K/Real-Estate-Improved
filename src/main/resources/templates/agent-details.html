@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Details</title>
+    <script th:src="@{/js/bundle-Agent.js}" defer></script>
+    <link th:href="@{/css/bundle-main.css}" rel="stylesheet">
+</head>
+<body>
+<header th:insert="~{fragments/header::header}"></header>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Agent Details</h1>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h3 class="card-title" th:text="${agent.agentName}" style="font-size: 1.5rem; font-weight: bold;"></h3>
+            <p class="card-text">
+                <strong>ID:</strong> <span th:text="${agent.agentId}"></span><br>
+                <strong>Contact Info:</strong> <span th:text="${agent.contactInfo}"></span><br>
+                <strong>License Number:</strong> <span th:text="${agent.licenceNumber}"></span><br>
+                <strong>Email:</strong> <span th:text="${agent.email}"></span>
+            </p>
+            <button class="btn btn-primary"
+            id="load-properties"
+            th:attr="data-agent-id=${agent.agentId}">Properties</button>
+            <div id="managed-properties"></div>
+        </div>
+    </div>
+    <br>
+    <a th:href="@{/agents}" class="btn btn-primary mb-3" >Back to Agents</a>
+</div>
+<footer th:insert="~{fragments/footer::footer}"></footer>
+</body>
+</html>

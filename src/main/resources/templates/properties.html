@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Properties</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script th:src="@{/js/bundle-DeleteProperty.js}" defer></script>
+    <link th:href="@{/css/bundle-main.css}" rel="stylesheet">
+</head>
+<body>
+<header th:insert="~{fragments/header::header}"></header>
+
+<h1 >Properties: <!--<span th:text="${Properties.size()}"></span>--></h1>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <form th:action="@{/properties/filter}" method="post">
+                        <div class="row">
+                            <!-- Filter by Min and Max Price -->
+                            <div class="col-md-6">
+                                <h5 class="card-title">Filter by Price</h5>
+                                <div class="mb-3">
+                                    <label for="minPrice" class="form-label">Min Price:</label>
+                                    <input type="number" class="form-control" name="minPrice" id="minPrice" placeholder="Enter minimum price">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="maxPrice" class="form-label">Max Price:</label>
+                                    <input type="number" class="form-control" name="maxPrice" id="maxPrice" placeholder="Enter maximum price">
+                                </div>
+                            </div>
+
+                            <!-- Filter by Type and Status -->
+                            <div class="col-md-6">
+                                <h5 class="card-title">Filter by Type and Status</h5>
+                                <div class="mb-3">
+                                    <label for="type" class="form-label">Type:</label>
+                                    <select class="form-select" name="type" id="type">
+                                        <option value="">All</option>
+                                        <option value="RESIDENTIAL">Residential</option>
+                                        <option value="COMMERCIAL">Commercial</option>
+                                        <option value="INDUSTRIAL">Industrial</option>
+                                        <option value="RECREATIONAL">Recreational</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">Status:</label>
+                                    <select class="form-select" name="status" id="status">
+                                        <option value="">All</option>
+                                        <option value="AVAILABLE">Available</option>
+                                        <option value="SOLD">Sold</option>
+                                        <option value="RENTED">Rented</option>
+                                        <option value="LEASED">Leased</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Single Filter Button Below -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-danger w-50">Filter</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4 mb-3" th:each="property : ${Properties.properties()}" th:id="'property-' + ${property.propertyId}">
+            <div class="card shadow-sm">
+                <img th:src="${property.image}" class="card-img-top" th:alt="${property.propertyName}" style="height: 250px; object-fit: cover;">
+                <div class="card-body">
+                    <h3 class="card-title" th:text="${property.propertyName}"></h3>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <form th:action="@{/properties/{id}(id=${property.propertyId})}" method="get">
+                            <button type="submit" class="btn btn-primary" >View Property Details</button>
+                        </form>
+
+                            <button th:if="${property.isModificationAllowed}" class="btn btn-danger btn-sm remove-property-button" th:attr="data-property-id=${property.propertyId }" sec:authorize="isAuthenticated()" >Delete</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="~{fragments/footer::footer}"></footer>
+</body>
+</html>
